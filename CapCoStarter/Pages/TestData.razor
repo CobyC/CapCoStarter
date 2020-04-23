@@ -1,0 +1,20 @@
+﻿@page "/TestData"
+@inherits TestDataBase
+
+@if (TestDataValue == null)
+{
+    <h3>Loading...</h3>
+}
+else
+{
+    <AuthorizeView>
+        <Authorized>
+            <h3>Authorized!! - TestData</h3>
+            <h4>@TestDataValue.TestValue</h4>            
+        </Authorized>
+        <NotAuthorized>
+            <h3>Not Authorized!! - TestData</h3>
+            <h4>@TestDataValue.TestValue</h4>            
+        </NotAuthorized>
+    </AuthorizeView>
+}

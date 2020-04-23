@@ -1,0 +1,28 @@
+﻿@page "/"
+
+<h2>Simple Open Identity Connect Implementation</h2>
+<p>
+    This version is a simple OIDC setup, that can be used as a start point for app only needing a very simple user login implementation
+</p>
+<p>
+    This is using the pluralsight courses from Kevin Dockx as guidance.
+   <ul style="list-style: none;">
+       <li><a href="https://app.pluralsight.com/library/courses/securing-aspnet-core-3-oauth2-openid-connect/table-of-contents">Securing ASP.NET Core 3 with OAuth2 and OpenID Connect</a></li>
+       <li>and</li>
+       <li><a href="https://app.pluralsight.com/library/courses/authentication-authorization-blazor-applications/table-of-contents">Authentication and Authorization in Blazor Applications</a></li>
+   </ul>
+ </p>
+
+<p>
+    It uses the memory data store for users so there is no database backend
+</p>
+
+<p>
+    The solution is structured:
+    <ul>
+        <li>Blazor Client Project (Main web site)</li>
+        <li>Api - Project (backend Apis that access data)</li>
+        <li>Open Id Connect - Project (used for authentication and autorization, user management, security token management) </li>
+        <li>Shared - Project (contains shared dtos, classes used in above projects)</li>
+    </ul>
+</p>
