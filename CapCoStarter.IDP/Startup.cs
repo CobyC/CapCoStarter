@@ -2,10 +2,13 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using CapCoStarter.IDP.Areas.Identity.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace CapCoStarter.IDP
 {
@@ -22,12 +25,20 @@ namespace CapCoStarter.IDP
         {
             // uncomment, if you want to add an MVC-based UI
             services.AddControllersWithViews();
+            services.AddMvc();
 
-            var builder = services.AddIdentityServer()
+            var builder = services.AddIdentityServer(option =>
+            {
+                option.Events.RaiseErrorEvents = true;
+                option.Events.RaiseInformationEvents = true;
+                option.Events.RaiseFailureEvents = true;
+                option.Events.RaiseSuccessEvents = true;
+            })
                 .AddInMemoryIdentityResources(Config.Ids)
                 .AddInMemoryApiResources(Config.Apis)
                 .AddInMemoryClients(Config.Clients)
-                .AddTestUsers(TestUsers.Users);
+                //.AddTestUsers(TestUsers.Users);
+                .AddAspNetIdentity<ApplicationUser>();
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
@@ -50,7 +61,9 @@ namespace CapCoStarter.IDP
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapDefaultControllerRoute();
+                endpoints.MapRazorPages();
             });
         }
     }

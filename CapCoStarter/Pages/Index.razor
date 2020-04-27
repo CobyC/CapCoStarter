@@ -2,7 +2,7 @@
 
 <h2>Simple Open Identity Connect Implementation</h2>
 <p>
-    This version is a simple OIDC setup, that can be used as a start point for app only needing a very simple user login implementation
+    This version is a simple OIDC setup including ASP.NET Core Identity, that can be used as a start point for apps making use of openid connect and ASP.Net Core Identity
 </p>
 <p>
     This is using the pluralsight courses from Kevin Dockx as guidance.
@@ -14,7 +14,7 @@
  </p>
 
 <p>
-    It uses the memory data store for users so there is no database backend
+    It uses the default ASP.Net Core data store (EF Core)
 </p>
 
 <p>
@@ -22,7 +22,7 @@
     <ul>
         <li>Blazor Client Project (Main web site)</li>
         <li>Api - Project (backend Apis that access data)</li>
-        <li>Open Id Connect - Project (used for authentication and autorization, user management, security token management) </li>
+        <li>Open Id Connect, including ASPNET Core Identity - Project (used for authentication and autorization, user management, security token management) </li>
         <li>Shared - Project (contains shared dtos, classes used in above projects)</li>
     </ul>
 </p>
