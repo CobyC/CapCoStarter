@@ -1,0 +1,6 @@
+﻿* open package manager console.
+- make sure to select correct default project
+type: Add-Migration [giveitaname]
+ ie Add-Miggration CreateDatabaseSchema
+
+then type: Update-Database (this will create or update the databse)

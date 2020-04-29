@@ -41,6 +41,7 @@ namespace CapCoStarter
             services.AddHttpContextAccessor();
             services.AddTransient<BearerTokenHandler>();//add the bearer token handler
 
+            #region Non generic way of adding a client (single specified)
             //add api client with additional bearer token added
             //services.AddHttpClient("APIClient", client =>
             // {
@@ -49,8 +50,11 @@ namespace CapCoStarter
             //     client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
             // }).AddHttpMessageHandler<BearerTokenHandler>();
             //var pslmUri = new Uri(Configuration.GetValue<string>("ApiUri")),
+            #endregion
 
             var pslmUri = new Uri("https://localhost:44228/");
+            
+            #region helper method for adding clients
             void RegisterTypedClient<TClient, TImplementation>(Uri apiBaseUrl)
                 where TClient : class where TImplementation : class, TClient
             {
@@ -62,12 +66,13 @@ namespace CapCoStarter
                 }).AddHttpMessageHandler<BearerTokenHandler>();
             }
             RegisterTypedClient<ITestDataService, TestDataService>(pslmUri);
+            #endregion
 
-
+            var oidcUri = new Uri("https://localhost:44338/");
             //add a client to access the openid information
             services.AddHttpClient("IDPClient", client =>
             {
-                client.BaseAddress = new Uri("https://localhost:44338/");
+                client.BaseAddress = oidcUri;
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
             });
@@ -100,7 +105,7 @@ namespace CapCoStarter
                     //make sure address not in claims identity
                     //options.ClaimActions.DeleteClaim("address"); not needed as it does not map in claims identity
                     options.SaveTokens = true;
-                    options.GetClaimsFromUserInfoEndpoint = true;
+                    options.GetClaimsFromUserInfoEndpoint = true;                    
                 });
         }
 
